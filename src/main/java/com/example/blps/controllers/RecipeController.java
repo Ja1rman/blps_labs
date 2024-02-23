@@ -29,7 +29,7 @@ public class RecipeController {
         }
     }
     @GetMapping("rankings")
-    public String rankings(@RequestParam(value = "id", required = false) Integer id) {
+    public String rankings(@RequestParam(value = "id", required = true) Integer id) {
         if (id != null) {
             return "rankings for id: " + id;
         }
@@ -47,6 +47,6 @@ public class RecipeController {
     @Operation(summary = "Доступен только авторизованным пользователям")
     public String add(@RequestBody Recipe recipe) {
         // saving recipe as draft
-        return "Draft of recipe received";
+        return "recipe received";
     }
 }

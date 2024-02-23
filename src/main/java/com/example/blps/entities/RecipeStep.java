@@ -1,25 +1,15 @@
 package com.example.blps.entities;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
+@Setter
+@Getter
 public class RecipeStep {
+    // Геттеры и сеттеры
     private String stepText;
     private List<String> stepPhotos;
 
-    // Геттеры и сеттеры
-    public String getStepText() {
-        return stepText;
-    }
-
-    public void setStepText(String stepText) {
-        this.stepText = stepText;
-    }
-
-    public List<String> getStepPhotos() {
-        return stepPhotos;
-    }
-
-    public void setStepPhotos(List<String> stepPhotos) {
-        this.stepPhotos = stepPhotos;
-    }
 }
