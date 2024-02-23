@@ -72,8 +72,4 @@ public class UserService {
         var username = SecurityContextHolder.getContext().getAuthentication().getName();
         return getByUsername(username);
     }
-
-
-
-
 }

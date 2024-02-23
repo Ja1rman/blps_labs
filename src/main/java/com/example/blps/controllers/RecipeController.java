@@ -13,7 +13,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -26,7 +25,7 @@ public class RecipeController {
     private final ReviewRepository reviewRepository;
     @GetMapping("show/draft")
     @Operation(summary = "Доступен только авторизованным пользователям")
-    public ResponseEntity<?> showDraft(@RequestParam(value = "id", required = true) Long id) {
+    public ResponseEntity<?> showDraft(@RequestParam(value = "id") Long id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = (User) authentication.getPrincipal();
 
@@ -44,7 +43,7 @@ public class RecipeController {
         return ResponseEntity.ok(recipe);
     }
     @GetMapping("show")
-    public ResponseEntity<?> show(@RequestParam(value = "id", required = true) Long id) {
+    public ResponseEntity<?> show(@RequestParam(value = "id") Long id) {
         Optional<Recipe> recipeOptional = recipeRepository.findById(id);
         if (recipeOptional.isPresent()) {
             boolean isDraft = recipeOptional.get().hasNullFieldsForDraft();
@@ -58,7 +57,7 @@ public class RecipeController {
         }
     }
     @GetMapping("reviews")
-    public ResponseEntity<Optional<List<Review>>> reviews(@RequestParam(value = "id", required = true) Long id) {
+    public ResponseEntity<Optional<List<Review>>> reviews(@RequestParam(value = "id") Long id) {
         Optional<List<Review>> reviews = reviewRepository.findByEntityId(id);
         if (reviews.isEmpty()) {
             return ResponseEntity.notFound().build();
