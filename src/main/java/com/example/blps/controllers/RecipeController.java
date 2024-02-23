@@ -1,17 +1,20 @@
 package com.example.blps.controllers;
 
 import com.example.blps.entities.Recipe;
+import com.example.blps.entities.Review;
 import com.example.blps.entities.User;
 import com.example.blps.repositories.RecipeRepository;
+import com.example.blps.repositories.ReviewRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -20,6 +23,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RecipeController {
     private final RecipeRepository recipeRepository;
+    private final ReviewRepository reviewRepository;
     @GetMapping("show/draft")
     @Operation(summary = "Доступен только авторизованным пользователям")
     public ResponseEntity<?> showDraft(@RequestParam(value = "id", required = true) Long id) {
@@ -53,14 +57,13 @@ public class RecipeController {
             return ResponseEntity.notFound().build();
         }
     }
-    @GetMapping("rankings")
-    public String rankings(@RequestParam(value = "id", required = true) Long id) {
-        if (id != null) {
-            return "rankings for id: " + id;
+    @GetMapping("reviews")
+    public ResponseEntity<Optional<List<Review>>> reviews(@RequestParam(value = "id", required = true) Long id) {
+        Optional<List<Review>> reviews = reviewRepository.findByEntityId(id);
+        if (reviews.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
-        else {
-            return "rankings for last is ...";
-        }
+        return ResponseEntity.ok(reviews);
     }
     @PostMapping("add/draft")
     @Operation(summary = "Доступен только авторизованным пользователям")
