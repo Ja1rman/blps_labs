@@ -1,14 +1,21 @@
 package com.example.blps.entities;
 
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
+@Entity
+@Builder
 @Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "ingredients")
 public class Ingredient {
-    // Геттеры и сеттеры
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
-    private double weight; // Вес может быть в граммах, миллилитрах и т.д.
-    private int quantity; // Количество, если применимо (например, 2 яблока)
-
+    private Double weight;
+    private Integer quantity;
 }
