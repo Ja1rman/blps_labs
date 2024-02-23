@@ -17,6 +17,7 @@ public class RecipeStep {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String stepText;
     @ElementCollection
     private List<String> stepPhotos;
