@@ -1,0 +1,274 @@
+_type: export
+__export_format: 4
+__export_date: 2024-02-23T23:37:12.880Z
+__export_source: insomnia.desktop.app:v8.6.1
+resources:
+  - _id: req_536db7dc5b01441fb5f4880b7e138e83
+    parentId: wrk_b9ee37c64dcc42e88776e2a7be0d10be
+    modified: 1708718465888
+    created: 1708699985993
+    url: http://localhost:8080/recipe/show?id=2
+    name: show recipe
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: User-Agent
+        value: insomnia/8.6.1
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwiZW1haWwiOiJhYm9iYUBhYm9iYS5ydSIsInN1YiI6ImFib2JhIiwiaWF0IjoxNzA4NzE4NDU0LCJleHAiOjE3MDg4NjI0NTR9._hZ3T8jIyNBmKV1UHq4Yoya31W9asl0d0SUUzUgeTPw
+    metaSortKey: -1708699985993
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: wrk_b9ee37c64dcc42e88776e2a7be0d10be
+    parentId: null
+    modified: 1708699735086
+    created: 1708699735086
+    name: blps
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_47b82c7084434ef1a305f2f059c164f2
+    parentId: wrk_b9ee37c64dcc42e88776e2a7be0d10be
+    modified: 1708721169311
+    created: 1708700101201
+    url: http://localhost:8080/recipe/reviews?id=1
+    name: get rankings
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: User-Agent
+        value: insomnia/8.6.1
+    authentication: {}
+    metaSortKey: -1708699959129.5
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_6854ba9ead444822b9fca8d03c0a98a8
+    parentId: wrk_b9ee37c64dcc42e88776e2a7be0d10be
+    modified: 1708718252826
+    created: 1708700146026
+    url: http://localhost:8080/recipe/add/draft
+    name: add draft
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"steps": [],
+        	"mainPhotoUrl": "http://photo.com/1",
+        	"tags": ["tag1"],
+        	"category": "fitness",
+        	"timeToCook": 10,
+        	"numberOfServings": 1,
+        	"ingredients": []
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/8.6.1
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJhYm9iYTJAYWJvYmEucnUiLCJzdWIiOiJhYm9iYTIiLCJpYXQiOjE3MDg3MTgyNDAsImV4cCI6MTcwODg2MjI0MH0.skscIz465xsSZnd0ay_wtnIwjweHXX-L5FEMo9kDFwI
+    metaSortKey: -1708699945697.75
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_a919eec0af7b415c9ce234044242a28c
+    parentId: wrk_b9ee37c64dcc42e88776e2a7be0d10be
+    modified: 1708718354281
+    created: 1708700363494
+    url: http://localhost:8080/recipe/add
+    name: add recipe
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"steps": [
+        		{
+        			"stepText": "You need to take cheese and cut this",
+        			"stepPhotos": [
+        				"https://photo.ru/photo2"
+        			]
+        		},
+        		{
+        			"stepText": "Edit Cookies and eat url",
+        			"stepPhotos": [
+        				"https://photo.ru/photo3",
+        				"https://photo.ru/photo5"
+        			]
+        		}
+        	],
+        	"mainPhotoUrl": "http://photo.com/1",
+        	"tags": ["tag1"],
+        	"category": "fitness",
+        	"timeToCook": 10,
+        	"numberOfServings": 1,
+        	"ingredients": [
+        		{
+        			"name": "Cheese",
+        			"weight": 100,
+        			"quantity": 1
+        		},
+        		{
+        			"name": "Apple",
+        			"weight": 500,
+        			"quantity": 2
+        		}]
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/8.6.1
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJhYm9iYTJAYWJvYmEucnUiLCJzdWIiOiJhYm9iYTIiLCJpYXQiOjE3MDg3MTgyNDAsImV4cCI6MTcwODg2MjI0MH0.skscIz465xsSZnd0ay_wtnIwjweHXX-L5FEMo9kDFwI
+    metaSortKey: -1708699938981.875
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_30ab70cd6cc74032b3387b5f97f672a6
+    parentId: wrk_b9ee37c64dcc42e88776e2a7be0d10be
+    modified: 1708718516687
+    created: 1708699932266
+    url: http://localhost:8080/recipe/show/draft?id=2
+    name: show draft
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: User-Agent
+        value: insomnia/8.6.1
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJhYm9iYTJAYWJvYmEucnUiLCJzdWIiOiJhYm9iYTIiLCJpYXQiOjE3MDg3MTg1MDgsImV4cCI6MTcwODg2MjUwOH0.tPLPmpAzadTeM0Cu1Nbq4BAtczoKQMi-X0ONBW09e9A
+    metaSortKey: -1708699932266
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_54bbb0add29246ff8b510165edd7687d
+    parentId: wrk_b9ee37c64dcc42e88776e2a7be0d10be
+    modified: 1708700812583
+    created: 1708699895621
+    url: http://localhost:8080/auth/sign-in
+    name: sign in
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+            "username": "aboba2",
+            "password": "aboba"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/8.6.1
+    authentication: {}
+    metaSortKey: -1708699895621
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_7ea5a35151f04178825147da5a8044f4
+    parentId: wrk_b9ee37c64dcc42e88776e2a7be0d10be
+    modified: 1708718452776
+    created: 1708699740399
+    url: http://localhost:8080/auth/sign-up
+    name: sign up
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+            "username": "aboba",
+            "email": "aboba@aboba.ru",
+            "password": "aboba"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/8.6.1
+    authentication: {}
+    metaSortKey: -1708699740399
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_63dcdabef712c6fc4532c98e568bd2de1658f872
+    parentId: wrk_b9ee37c64dcc42e88776e2a7be0d10be
+    modified: 1708699735087
+    created: 1708699735087
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1708699735087
+    _type: environment
+  - _id: jar_63dcdabef712c6fc4532c98e568bd2de1658f872
+    parentId: wrk_b9ee37c64dcc42e88776e2a7be0d10be
+    modified: 1708699735088
+    created: 1708699735088
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
