@@ -1,4 +1,4 @@
-package com.example.blps.security.services;
+package com.example.blps.services;
 
 
 import lombok.RequiredArgsConstructor;

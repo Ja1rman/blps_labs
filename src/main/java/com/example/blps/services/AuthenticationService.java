@@ -1,13 +1,13 @@
-package com.example.blps.security.services;
+package com.example.blps.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.example.blps.security.jwt.JwtAuthenticationResponse;
-import com.example.blps.security.jwt.SignInRequest;
-import com.example.blps.security.jwt.SignUpRequest;
+import com.example.blps.security.JwtAuthenticationResponse;
+import com.example.blps.security.SignInRequest;
+import com.example.blps.security.SignUpRequest;
 import com.example.blps.entities.User;
 
 @Service

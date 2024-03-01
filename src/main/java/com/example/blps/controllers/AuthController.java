@@ -1,9 +1,9 @@
 package com.example.blps.controllers;
 
-import com.example.blps.security.jwt.JwtAuthenticationResponse;
-import com.example.blps.security.jwt.SignInRequest;
-import com.example.blps.security.jwt.SignUpRequest;
-import com.example.blps.security.services.AuthenticationService;
+import com.example.blps.security.JwtAuthenticationResponse;
+import com.example.blps.security.SignInRequest;
+import com.example.blps.security.SignUpRequest;
+import com.example.blps.services.AuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
