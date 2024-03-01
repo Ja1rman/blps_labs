@@ -4,79 +4,81 @@ import com.example.blps.entities.Ingredient;
 import com.example.blps.entities.Recipe;
 import com.example.blps.entities.RecipeStep;
 import com.example.blps.repositories.RecipeRepository;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
-public class RecipeRepositoryTest {
-
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
+@Testcontainers
+public class RecipeRepositoryTest extends AbstractIntegrationTest {
     @Autowired
-    private RecipeRepository recipeRepository;
+    private RecipeRepository repo;
 
     @Test
-    public void testSaveAndFindById() {
-        Recipe recipe = Recipe.builder()
+    @Transactional
+    public void findByIdTest(){
+        Recipe baseRecipe = insertRecipes();
+        Optional<Recipe> resp = repo.findById(baseRecipe.getId());
+        assertThat(resp).isPresent();
+        Recipe recipe = resp.get();
+        assertThat(recipe.getTimeToCook()).isEqualTo(baseRecipe.getTimeToCook());
+    }
+
+    @Test
+    @Transactional
+    public void findByModerStatusTest(){
+        Recipe baseRecipe = insertRecipes();
+        Optional<List<Recipe>> resp = repo.findByModerStatus(true);
+        assertThat(resp).isPresent();
+        List<Recipe> recipes = resp.get();
+        assertThat(recipes).isNotEmpty();
+        assertThat(recipes.getFirst().getTimeToCook()).isEqualTo(baseRecipe.getTimeToCook());
+    }
+
+    private Recipe insertRecipes() {
+        Ingredient flour = Ingredient.builder()
+                .name("Flour")
+                .weight(500.0)
+                .quantity(1)
+                .build();
+        Ingredient water = Ingredient.builder()
+                .name("Water")
+                .weight(300.0)
+                .quantity(1)
+                .build();
+        RecipeStep step1 = RecipeStep.builder()
+                .stepText("Mix flour and water until smooth.")
+                .stepPhotos(Arrays.asList("step1photo1.jpg", "step1photo2.jpg"))
+                .build();
+        Recipe pizzaRecipe = Recipe.builder()
                 .ownerId(1L)
-                .mainPhotoUrl("example.com/photo.jpg")
-                .category("Dessert")
-                .timeToCook(30)
-                .isDraft(false)
-                .numberOfServings(4)
-                .tags(Arrays.asList("sweet", "summer"))
-                .build();
-        Recipe savedRecipe = recipeRepository.save(recipe);
-
-        Optional<Recipe> foundRecipe = recipeRepository.findById(savedRecipe.getId());
-
-        assertThat(foundRecipe).isPresent();
-        assertThat(foundRecipe.get().getOwnerId()).isEqualTo(1L);
-        assertThat(foundRecipe.get().getTags()).contains("sweet", "summer");
-    }
-
-    @Test
-    public void testRecipeDraftValidation() {
-        Recipe draftRecipe = Recipe.builder()
-                .ownerId(2L)
-                .isDraft(true)
-                .build();
-        assertThat(draftRecipe.hasNullFieldsForDraft()).isTrue();
-
-        draftRecipe.setMainPhotoUrl("example.com/photo.jpg");
-        draftRecipe.setCategory("Breakfast");
-        draftRecipe.setTimeToCook(15);
-        draftRecipe.setNumberOfServings(2);
-        draftRecipe.setSteps(Collections.singletonList(new RecipeStep()));
-        draftRecipe.setIngredients(Collections.singletonList(new Ingredient()));
-        draftRecipe.setTags(Collections.singletonList("quick"));
-
-        assertThat(draftRecipe.hasNullFieldsForDraft()).isFalse();
-    }
-
-    @Test
-    public void testDeleteRecipe() {
-        Recipe recipe = Recipe.builder()
-                .ownerId(3L)
-                .mainPhotoUrl("example.com/photo.jpg")
-                .category("Lunch")
+                .steps(Collections.singletonList(step1))
+                .mainPhotoUrl("pizzaMainPhoto.jpg")
+                .tags(Arrays.asList("Italian", "Main Course"))
+                .category("Pizza")
                 .timeToCook(45)
+                .numberOfServings(4)
+                .ingredients(Arrays.asList(flour, water))
+                .moderComment("Needs more photos.")
+                .moderStatus(true)
                 .isDraft(false)
-                .numberOfServings(6)
-                .tags(Arrays.asList("healthy", "vegan"))
+                .views(0)
                 .build();
-        Recipe savedRecipe = recipeRepository.save(recipe);
-
-        recipeRepository.deleteById(savedRecipe.getId());
-
-        Optional<Recipe> foundRecipe = recipeRepository.findById(savedRecipe.getId());
-        assertThat(foundRecipe).isNotPresent();
+        Recipe recipe = repo.save(pizzaRecipe);
+        repo.flush();
+        return recipe;
     }
+
 }

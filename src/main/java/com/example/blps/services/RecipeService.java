@@ -4,6 +4,7 @@ import com.example.blps.entities.Recipe;
 import com.example.blps.entities.Review;
 import com.example.blps.entities.User;
 import com.example.blps.model.ModerationResultDTO;
+import com.example.blps.model.ReviewDTO;
 import com.example.blps.repositories.RecipeRepository;
 import com.example.blps.repositories.ReviewRepository;
 import lombok.RequiredArgsConstructor;
@@ -114,5 +115,18 @@ public class RecipeService {
         }
         Recipe savedRecipe = recipeRepository.save(recipe);
         return new ResponseEntity<>(savedRecipe, HttpStatus.CREATED);
+    }
+
+    public ResponseEntity<?> addReview(ReviewDTO reviewDTO, User currentUser) {
+        Review review = new Review();
+        if (reviewDTO.hasNulls()) {
+            return new ResponseEntity<>("Пропущены данные в теле запроса", HttpStatus.BAD_REQUEST);
+        }
+        review.setText(reviewDTO.getComment());
+        review.setRating(reviewDTO.getRating());
+        review.setEntityId(reviewDTO.getRecipeId());
+        review.setUserId(currentUser.getId());
+        Review savedReview = reviewRepository.save(review);
+        return new ResponseEntity<>(savedReview, HttpStatus.CREATED);
     }
 }

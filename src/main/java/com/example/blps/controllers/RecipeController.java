@@ -4,6 +4,7 @@ import com.example.blps.entities.Recipe;
 import com.example.blps.entities.Review;
 import com.example.blps.entities.User;
 import com.example.blps.model.ModerationResultDTO;
+import com.example.blps.model.ReviewDTO;
 import com.example.blps.services.RecipeService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -59,6 +60,7 @@ public class RecipeController {
 
         return recipeService.addDraft(recipe, currentUser);
     }
+
     @PostMapping("add")
     @Operation(summary = "Доступен только авторизованным пользователям")
     public ResponseEntity<?> add(@RequestBody Recipe recipe) {
@@ -66,5 +68,14 @@ public class RecipeController {
         User currentUser = (User) authentication.getPrincipal();
 
         return recipeService.add(recipe, currentUser);
+    }
+
+    @PostMapping("add/review")
+    @Operation(summary = "Доступен только авторизованным пользователям")
+    public ResponseEntity<?> addReview(@RequestBody ReviewDTO review) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = (User) authentication.getPrincipal();
+
+        return recipeService.addReview(review, currentUser);
     }
 }
