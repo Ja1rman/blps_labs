@@ -1,13 +1,13 @@
 _type: export
 __export_format: 4
-__export_date: 2024-02-23T23:37:12.880Z
+__export_date: 2024-03-01T21:18:17.466Z
 __export_source: insomnia.desktop.app:v8.6.1
 resources:
   - _id: req_536db7dc5b01441fb5f4880b7e138e83
     parentId: wrk_b9ee37c64dcc42e88776e2a7be0d10be
-    modified: 1708718465888
+    modified: 1709327415001
     created: 1708699985993
-    url: http://localhost:8080/recipe/show?id=2
+    url: http://localhost:8080/recipe/show?id=4
     name: show recipe
     description: ""
     method: GET
@@ -18,7 +18,8 @@ resources:
         value: insomnia/8.6.1
     authentication:
       type: bearer
-      token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwiZW1haWwiOiJhYm9iYUBhYm9iYS5ydSIsInN1YiI6ImFib2JhIiwiaWF0IjoxNzA4NzE4NDU0LCJleHAiOjE3MDg4NjI0NTR9._hZ3T8jIyNBmKV1UHq4Yoya31W9asl0d0SUUzUgeTPw
+      token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwiZW1haWwiOiJhYm9iYTNAYWJvYmEucnUiLCJzdWIiOiJhYm9iYTMiLCJpYXQiOjE3MDkzMDU3MDAsImV4cCI6MTcwOTQ0OTcwMH0.SCqbPyoyne7FdRbnfW2pV4p5CZ7CVqqVqP9xmWKA2Uw
+      disabled: true
     metaSortKey: -1708699985993
     isPrivate: false
     pathParameters: []
@@ -37,11 +38,74 @@ resources:
     description: ""
     scope: collection
     _type: workspace
+  - _id: req_fb10608404da4084ac815cb22b8e1133
+    parentId: wrk_b9ee37c64dcc42e88776e2a7be0d10be
+    modified: 1709312289904
+    created: 1709309930224
+    url: http://localhost:8080/recipe/moderation/send_result
+    name: moderation send_result
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"id": 4,
+        	"moderResult": false,
+        	"moderComment": "jfjjj"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/8.6.1
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwiZW1haWwiOiJhYm9iYTNAYWJvYmEucnUiLCJzdWIiOiJhYm9iYTMiLCJpYXQiOjE3MDkzMDkxNzUsImV4cCI6MTcwOTQ1MzE3NX0.8kXkA1-xTpzcLcjyAshEWDC03Nn-Ad8Zmgr1HRawqoM
+      disabled: false
+    metaSortKey: -1708699972561.25
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_e97637b4964a4b289b1a39b7f1ab658c
+    parentId: wrk_b9ee37c64dcc42e88776e2a7be0d10be
+    modified: 1709312246781
+    created: 1709312227286
+    url: http://localhost:8080/recipe/moderation/show
+    name: moderation show
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: User-Agent
+        value: insomnia/8.6.1
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwiZW1haWwiOiJhYm9iYTNAYWJvYmEucnUiLCJzdWIiOiJhYm9iYTMiLCJpYXQiOjE3MDkzMDkxNzUsImV4cCI6MTcwOTQ1MzE3NX0.8kXkA1-xTpzcLcjyAshEWDC03Nn-Ad8Zmgr1HRawqoM
+      disabled: false
+    metaSortKey: -1708699965845.375
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: req_47b82c7084434ef1a305f2f059c164f2
     parentId: wrk_b9ee37c64dcc42e88776e2a7be0d10be
-    modified: 1708721169311
+    modified: 1709327424412
     created: 1708700101201
-    url: http://localhost:8080/recipe/reviews?id=1
+    url: http://localhost:8080/recipe/reviews?id=3
     name: get rankings
     description: ""
     method: GET
@@ -50,8 +114,46 @@ resources:
     headers:
       - name: User-Agent
         value: insomnia/8.6.1
-    authentication: {}
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwiZW1haWwiOiJhYm9iYTNAYWJvYmEucnUiLCJzdWIiOiJhYm9iYTMiLCJpYXQiOjE3MDkzMDkxNzUsImV4cCI6MTcwOTQ1MzE3NX0.8kXkA1-xTpzcLcjyAshEWDC03Nn-Ad8Zmgr1HRawqoM
+      disabled: true
     metaSortKey: -1708699959129.5
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_ebcf699ec7914bf6a82a9e7e2fb13d03
+    parentId: wrk_b9ee37c64dcc42e88776e2a7be0d10be
+    modified: 1709326946218
+    created: 1709326809801
+    url: http://localhost:8080/recipe/add/review
+    name: add rankings
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"recipeId": 3,
+        	"rating": 5,
+        	"comment": "мэнчик, всё гуд"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/8.6.1
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwiZW1haWwiOiJhYm9iYTNAYWJvYmEucnUiLCJzdWIiOiJhYm9iYTMiLCJpYXQiOjE3MDkzMDkxNzUsImV4cCI6MTcwOTQ1MzE3NX0.8kXkA1-xTpzcLcjyAshEWDC03Nn-Ad8Zmgr1HRawqoM
+    metaSortKey: -1708699952413.625
     isPrivate: false
     pathParameters: []
     settingStoreCookies: true
@@ -63,7 +165,7 @@ resources:
     _type: request
   - _id: req_6854ba9ead444822b9fca8d03c0a98a8
     parentId: wrk_b9ee37c64dcc42e88776e2a7be0d10be
-    modified: 1708718252826
+    modified: 1709305834057
     created: 1708700146026
     url: http://localhost:8080/recipe/add/draft
     name: add draft
@@ -73,11 +175,12 @@ resources:
       mimeType: application/json
       text: |-
         {
+        	"id": 2,
         	"steps": [],
         	"mainPhotoUrl": "http://photo.com/1",
         	"tags": ["tag1"],
         	"category": "fitness",
-        	"timeToCook": 10,
+        	"timeToCook": 1000,
         	"numberOfServings": 1,
         	"ingredients": []
         }
@@ -89,7 +192,7 @@ resources:
         value: insomnia/8.6.1
     authentication:
       type: bearer
-      token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJhYm9iYTJAYWJvYmEucnUiLCJzdWIiOiJhYm9iYTIiLCJpYXQiOjE3MDg3MTgyNDAsImV4cCI6MTcwODg2MjI0MH0.skscIz465xsSZnd0ay_wtnIwjweHXX-L5FEMo9kDFwI
+      token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwiZW1haWwiOiJhYm9iYTNAYWJvYmEucnUiLCJzdWIiOiJhYm9iYTMiLCJpYXQiOjE3MDkzMDU3MDAsImV4cCI6MTcwOTQ0OTcwMH0.SCqbPyoyne7FdRbnfW2pV4p5CZ7CVqqVqP9xmWKA2Uw
     metaSortKey: -1708699945697.75
     isPrivate: false
     pathParameters: []
@@ -102,7 +205,7 @@ resources:
     _type: request
   - _id: req_a919eec0af7b415c9ce234044242a28c
     parentId: wrk_b9ee37c64dcc42e88776e2a7be0d10be
-    modified: 1708718354281
+    modified: 1709309198239
     created: 1708700363494
     url: http://localhost:8080/recipe/add
     name: add recipe
@@ -152,7 +255,7 @@ resources:
         value: insomnia/8.6.1
     authentication:
       type: bearer
-      token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJhYm9iYTJAYWJvYmEucnUiLCJzdWIiOiJhYm9iYTIiLCJpYXQiOjE3MDg3MTgyNDAsImV4cCI6MTcwODg2MjI0MH0.skscIz465xsSZnd0ay_wtnIwjweHXX-L5FEMo9kDFwI
+      token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwiZW1haWwiOiJhYm9iYTNAYWJvYmEucnUiLCJzdWIiOiJhYm9iYTMiLCJpYXQiOjE3MDkzMDkxNzUsImV4cCI6MTcwOTQ1MzE3NX0.8kXkA1-xTpzcLcjyAshEWDC03Nn-Ad8Zmgr1HRawqoM
     metaSortKey: -1708699938981.875
     isPrivate: false
     pathParameters: []
@@ -165,9 +268,9 @@ resources:
     _type: request
   - _id: req_30ab70cd6cc74032b3387b5f97f672a6
     parentId: wrk_b9ee37c64dcc42e88776e2a7be0d10be
-    modified: 1708718516687
+    modified: 1709312301995
     created: 1708699932266
-    url: http://localhost:8080/recipe/show/draft?id=2
+    url: http://localhost:8080/recipe/show/draft?id=4
     name: show draft
     description: ""
     method: GET
@@ -178,7 +281,7 @@ resources:
         value: insomnia/8.6.1
     authentication:
       type: bearer
-      token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJhYm9iYTJAYWJvYmEucnUiLCJzdWIiOiJhYm9iYTIiLCJpYXQiOjE3MDg3MTg1MDgsImV4cCI6MTcwODg2MjUwOH0.tPLPmpAzadTeM0Cu1Nbq4BAtczoKQMi-X0ONBW09e9A
+      token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwiZW1haWwiOiJhYm9iYTNAYWJvYmEucnUiLCJzdWIiOiJhYm9iYTMiLCJpYXQiOjE3MDkzMDU3MDAsImV4cCI6MTcwOTQ0OTcwMH0.SCqbPyoyne7FdRbnfW2pV4p5CZ7CVqqVqP9xmWKA2Uw
     metaSortKey: -1708699932266
     isPrivate: false
     pathParameters: []
@@ -191,7 +294,7 @@ resources:
     _type: request
   - _id: req_54bbb0add29246ff8b510165edd7687d
     parentId: wrk_b9ee37c64dcc42e88776e2a7be0d10be
-    modified: 1708700812583
+    modified: 1709326846370
     created: 1708699895621
     url: http://localhost:8080/auth/sign-in
     name: sign in
@@ -201,7 +304,7 @@ resources:
       mimeType: application/json
       text: |-
         {
-            "username": "aboba2",
+            "username": "aboba3",
             "password": "aboba"
         }
     parameters: []
@@ -223,7 +326,7 @@ resources:
     _type: request
   - _id: req_7ea5a35151f04178825147da5a8044f4
     parentId: wrk_b9ee37c64dcc42e88776e2a7be0d10be
-    modified: 1708718452776
+    modified: 1709304884222
     created: 1708699740399
     url: http://localhost:8080/auth/sign-up
     name: sign up
@@ -233,8 +336,8 @@ resources:
       mimeType: application/json
       text: |-
         {
-            "username": "aboba",
-            "email": "aboba@aboba.ru",
+            "username": "aboba3",
+            "email": "aboba3@aboba.ru",
             "password": "aboba"
         }
     parameters: []
