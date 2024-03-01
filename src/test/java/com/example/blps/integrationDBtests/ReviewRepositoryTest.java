@@ -1,9 +1,7 @@
 package com.example.blps.integrationDBtests;
 
 import com.example.blps.entities.*;
-import com.example.blps.repositories.RecipeRepository;
 import com.example.blps.repositories.ReviewRepository;
-import com.example.blps.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,8 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 

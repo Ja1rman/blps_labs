@@ -31,6 +31,7 @@ public class RecipeController {
     }
 
     @GetMapping("show")
+    @Operation(summary = "Доступен всем пользователям")
     public ResponseEntity<?> show(@RequestParam(value = "id") Long id) {
         return recipeService.show(id);
     }
@@ -48,6 +49,7 @@ public class RecipeController {
     }
 
     @GetMapping("reviews")
+    @Operation(summary = "Доступен всем пользователям")
     public ResponseEntity<Optional<List<Review>>> reviews(@RequestParam(value = "id") Long id) {
         return recipeService.reviews(id);
     }
