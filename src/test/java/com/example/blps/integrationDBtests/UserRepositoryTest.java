@@ -2,80 +2,74 @@ package com.example.blps.integrationDBtests;
 
 import com.example.blps.entities.User;
 import com.example.blps.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
-public class UserRepositoryTest {
-
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
+@Testcontainers
+public class UserRepositoryTest extends AbstractIntegrationTest {
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository repo;
 
     @Test
-    public void testSaveUser() {
+    @Transactional
+    public void findByIdTest(){
+        User baseUser = insertUsers();
+        Optional<User> resp = repo.findById(baseUser.getId());
+        assertThat(resp).isPresent();
+        User user = resp.get();
+        assertThat(user.getUsername()).isEqualTo(baseUser.getUsername());
+    }
+
+    @Test
+    @Transactional
+    public void findByUsernameTest(){
+        User baseUser = insertUsers();
+        Optional<User> resp = repo.findByUsername(baseUser.getUsername());
+        assertThat(resp).isPresent();
+        User user = resp.get();
+        assertThat(user.getId()).isEqualTo(baseUser.getId());
+    }
+
+    @Test
+    @Transactional
+    public void existsByUsernameTest(){
+        User baseUser = insertUsers();
+        boolean trueResp = repo.existsByUsername(baseUser.getUsername());
+        boolean falseResp = repo.existsByUsername(baseUser.getUsername() + '1');
+        assertThat(trueResp).isTrue();
+        assertThat(falseResp).isFalse();
+    }
+
+    @Test
+    @Transactional
+    public void existsByEmailTest(){
+        User baseUser = insertUsers();
+        boolean trueResp = repo.existsByEmail(baseUser.getEmail());
+        boolean falseResp = repo.existsByEmail(baseUser.getEmail() + '1');
+        assertThat(trueResp).isTrue();
+        assertThat(falseResp).isFalse();
+    }
+
+    private User insertUsers() {
         User user = User.builder()
                 .username("testUser")
                 .email("test@example.com")
                 .password("password")
                 .build();
-        User savedUser = userRepository.save(user);
-
-        assertThat(savedUser).isNotNull();
-        assertThat(savedUser.getId()).isNotNull();
+        User savedUser = repo.save(user);
+        repo.flush();
+        return savedUser;
     }
 
-    @Test
-    public void testFindByUsername() {
-        String username = "testUser";
-        String email = "testuser@example.com";
-        User user = User.builder()
-                .username(username)
-                .email(email)
-                .password("password")
-                .build();
-        userRepository.save(user);
-
-        Optional<User> foundUser = userRepository.findByUsername(username);
-
-        assertThat(foundUser).isPresent();
-        assertThat(foundUser).isNotNull();
-        assertThat(foundUser.get().getUsername()).isEqualTo(username);
-    }
-
-    @Test
-    public void testUpdateUser() {
-        String username = "updateTest";
-        User user = User.builder()
-                .username(username)
-                .email("updatetest@example.com")
-                .password("password")
-                .build();
-        User savedUser = userRepository.save(user);
-
-        String newEmail = "newemail@example.com";
-        savedUser.setEmail(newEmail);
-        User updatedUser = userRepository.save(savedUser);
-
-        assertThat(updatedUser.getEmail()).isEqualTo(newEmail);
-    }
-
-    @Test
-    public void testDeleteUser() {
-        String username = "deleteTest";
-        User user = User.builder()
-                .username(username)
-                .email("deletetest@example.com")
-                .password("password")
-                .build();
-        User savedUser = userRepository.save(user);
-
-        userRepository.delete(savedUser);
-
-        assertThat(userRepository.findByUsername(username)).isEmpty();
-    }
 }

@@ -1,4 +1,4 @@
-package com.example.blps.security.services;
+package com.example.blps.services;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

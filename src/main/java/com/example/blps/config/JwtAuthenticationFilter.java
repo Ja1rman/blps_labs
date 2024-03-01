@@ -1,7 +1,7 @@
 package com.example.blps.config;
 
-import com.example.blps.security.services.JwtService;
-import com.example.blps.security.services.UserService;
+import com.example.blps.services.JwtService;
+import com.example.blps.services.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
