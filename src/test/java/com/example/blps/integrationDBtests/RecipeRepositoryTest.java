@@ -76,9 +76,9 @@ public class RecipeRepositoryTest extends AbstractIntegrationTest {
                 .isDraft(false)
                 .views(0)
                 .build();
-        Recipe recipe = repo.save(pizzaRecipe);
+        repo.save(pizzaRecipe);
         repo.flush();
-        return recipe;
+        return pizzaRecipe;
     }
 
 }

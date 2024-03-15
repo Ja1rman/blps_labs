@@ -24,7 +24,7 @@ public class ReviewRepositoryTest extends AbstractIntegrationTest {
 
     @Test
     @Transactional
-    public void findByIdTest(){
+    public void findByIdTest() {
         Review baseReview = insertUsers();
         Optional<Review> resp = repo.findById(baseReview.getId());
         assertThat(resp).isPresent();
@@ -34,7 +34,7 @@ public class ReviewRepositoryTest extends AbstractIntegrationTest {
 
     @Test
     @Transactional
-    public void findByEntityIdTest(){
+    public void findByEntityIdTest() {
         Review baseReview = insertUsers();
         Optional<List<Review>> resp = repo.findByEntityId(baseReview.getEntityId());
         assertThat(resp).isPresent();
@@ -43,7 +43,6 @@ public class ReviewRepositoryTest extends AbstractIntegrationTest {
         assertThat(reviews.getFirst().getText()).isEqualTo(baseReview.getText());
     }
 
-
     private Review insertUsers() {
         Review review = Review.builder()
                 .text("хороший рецепт")
@@ -51,9 +50,9 @@ public class ReviewRepositoryTest extends AbstractIntegrationTest {
                 .userId(1L)
                 .entityId(2L)
                 .build();
-        Review savedReview = repo.save(review);
+        repo.save(review);
         repo.flush();
-        return savedReview;
+        return review;
     }
 
 }
