@@ -5,6 +5,9 @@ import lombok.*;
 
 import java.util.List;
 
+/**
+ * Класс сущности, представляющий рецепт в системе.
+ */
 @Entity
 @Builder
 @Setter
@@ -44,7 +47,11 @@ public class Recipe {
     private Boolean isDraft;
     @Column(name = "views", nullable = false)
     private Integer views;
-
+    /**
+     * Проверяет, содержит ли рецепт все необходимые поля для публикации.
+     *
+     * @return true, если рецепт не готов к публикации (имеет незаполненные поля).
+     */
     public boolean hasNullFieldsForDraft() {
         if (this.mainPhotoUrl == null || this.category == null || this.timeToCook == null || this.views == null ||
                 this.numberOfServings == null) {
@@ -53,7 +60,9 @@ public class Recipe {
         return this.steps == null || this.steps.isEmpty() || this.ingredients == null || this.ingredients.isEmpty() ||
                 this.tags == null || this.tags.isEmpty();
     }
-
+    /**
+     * Увеличивает счётчик просмотров рецепта на один.
+     */
     public void addView() {
         ++this.views;
     }

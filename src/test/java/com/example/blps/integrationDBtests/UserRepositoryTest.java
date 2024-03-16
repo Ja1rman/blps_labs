@@ -67,9 +67,9 @@ public class UserRepositoryTest extends AbstractIntegrationTest {
                 .email("test@example.com")
                 .password("password")
                 .build();
-        User savedUser = repo.save(user);
+        repo.save(user);
         repo.flush();
-        return savedUser;
+        return user;
     }
 
 }

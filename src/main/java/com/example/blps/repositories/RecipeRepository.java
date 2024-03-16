@@ -9,7 +9,16 @@ import java.util.Optional;
 
 @Repository
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
-    //Optional<Recipe> findById(Long id);
+    /**
+     * Находит рецепты по статусу модерации.
+     * Этот метод позволяет извлекать все рецепты, которые имеют указанный статус модерации,
+     * что может быть полезно для реализации функциональности модерации контента.
+     *
+     * @param moderStatus Булево значение, указывающее статус модерации рецептов, которые нужно найти.
+     *                    True, если рецепт ожидает модерации, и false в противном случае.
+     * @return Optional список рецептов с заданным статусом модерации. Возвращает пустой Optional,
+     * если рецепты с указанным статусом модерации не найдены.
+     */
     Optional<List<Recipe>> findByModerStatus(boolean moderStatus);
 }
 

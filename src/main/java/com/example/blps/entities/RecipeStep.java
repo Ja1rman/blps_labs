@@ -21,5 +21,4 @@ public class RecipeStep {
     private String stepText;
     @ElementCollection
     private List<String> stepPhotos;
-
 }
