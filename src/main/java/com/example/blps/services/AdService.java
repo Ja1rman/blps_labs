@@ -19,7 +19,6 @@ public class AdService {
     private final RecipeRepository recipeRepository;
     private final PaymentInfoRepository paymentInfoRepository;
     private final UserRepository userRepository;
-    private final UserService userService;
 
     /**
      * Получить статическую рекламу для заданного поста. В зависимости от наличия
@@ -42,10 +41,27 @@ public class AdService {
             return ResponseEntity.ok("Неперсонализированная реклама шавермы Шэра");
         }
         PaymentInfo newPaymentInfo = paymentInfo.get();
-        newPaymentInfo.setAmount(newPaymentInfo.getAmount() + 1);
+        newPaymentInfo.setAmount(newPaymentInfo.getAmount() + 1.3);
         // Сохраняем обновленную информацию о платежах
-        userService.savePaymentInfo(newPaymentInfo);
+        paymentInfoRepository.save(newPaymentInfo);
 
         return ResponseEntity.ok("Купите франшизу макдоналдс :(");
+    }
+
+    /**
+     * Получает текущий баланс пользователя.
+     *
+     * @param user Пользователь, для которого запрашивается баланс.
+     * @return ResponseEntity с текущим балансом пользователя. Если информация о платежах отсутствует,
+     * возвращает ответ с HTTP статусом 404 (Not Found).
+     */
+    public ResponseEntity<?> getBalance(User user) {
+        Optional<PaymentInfo> paymentInfo = paymentInfoRepository.findByUser(user);
+        if (paymentInfo.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        Double balance = paymentInfo.get().getAmount();
+
+        return ResponseEntity.ok(balance);
     }
 }

@@ -1,9 +1,12 @@
 package com.example.blps.controllers;
 
+import com.example.blps.entities.User;
 import com.example.blps.services.AdService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,5 +33,12 @@ public class AdController {
     @Operation(summary = "Доступно всем пользователям")
     public ResponseEntity<?> showDraft(@RequestParam(value = "post_id") Long postId) {
         return adService.getStaticAd(postId);
+    }
+    @GetMapping("balance")
+    @Operation(summary = "Доступно авторизованным пользователям")
+    public ResponseEntity<?> getMyBalance() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = (User) authentication.getPrincipal();
+        return adService.getBalance(currentUser);
     }
 }
