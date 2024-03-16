@@ -27,6 +27,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final UserService userService;
 
+    /**
+     * Фильтр для каждого запроса, который проверяет наличие и валидность JWT токена.
+     *
+     * @param request     Запрос к серверу.
+     * @param response    Ответ сервера.
+     * @param filterChain Цепочка фильтров.
+     */
     @Override
     protected void doFilterInternal(
             @NonNull HttpServletRequest request,

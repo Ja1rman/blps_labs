@@ -23,13 +23,20 @@ import java.util.List;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
-@EnableWebSecurity
-@EnableMethodSecurity
+@EnableWebSecurity // Включение поддержки безопасности веб-сервисов Spring
+@EnableMethodSecurity // Включение аннотаций безопасности на уровне методов
 @RequiredArgsConstructor
 public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final UserService userService;
 
+    /**
+     * Конфигурирует цепочку фильтров безопасности для HTTP-запросов.
+     *
+     * @param http объект для конфигурации безопасности.
+     * @return сконфигурированный объект SecurityFilterChain.
+     * @throws Exception может возникнуть при настройке HttpSecurity.
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
@@ -57,11 +64,21 @@ public class SecurityConfiguration {
         return http.build();
     }
 
+    /**
+     * Создает и возвращает PasswordEncoder для хеширования паролей.
+     *
+     * @return объект PasswordEncoder.
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * Создает и возвращает провайдера аутентификации, используемого для проверки учетных данных.
+     *
+     * @return объект AuthenticationProvider.
+     */
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -70,6 +87,13 @@ public class SecurityConfiguration {
         return authProvider;
     }
 
+    /**
+     * Возвращает AuthenticationManager, созданный на основе заданной конфигурации.
+     *
+     * @param config конфигурация для создания AuthenticationManager.
+     * @return объект AuthenticationManager.
+     * @throws Exception может возникнуть при получении AuthenticationManager.
+     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config)
             throws Exception {

@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
     private final UserRepository repository;
     private final PaymentInfoRepository paymentRepository;
+
     /**
      * Сохранение пользователя
      *
@@ -25,12 +26,18 @@ public class UserService {
     public User save(User user) {
         return repository.save(user);
     }
+
+    /**
+     * Сохранение платёжного аккаунта
+     *
+     * @return сохраненный платёжный аккаунт
+     */
     public PaymentInfo savePaymentInfo(PaymentInfo paymentInfo) {
         return paymentRepository.save(paymentInfo);
     }
 
     /**
-     * Создание пользователя
+     * Создание пользователя с платёжным аккаунтом
      */
     @Transactional
     public void create(User user) {

@@ -22,6 +22,13 @@ public class RecipeService {
     private final RecipeRepository recipeRepository;
     private final ReviewRepository reviewRepository;
 
+    /**
+     * Показать черновик рецепта по ID, если пользователь является владельцем.
+     *
+     * @param id          ID рецепта.
+     * @param currentUser Текущий пользователь, сделавший запрос.
+     * @return ResponseEntity с рецептом или сообщением об ошибке.
+     */
     public ResponseEntity<?> showDraft(Long id, User currentUser) {
         Recipe recipe = recipeRepository.findById(id).orElse(null);
         if (recipe == null) {
@@ -33,6 +40,12 @@ public class RecipeService {
         return ResponseEntity.ok(recipe);
     }
 
+    /**
+     * Показать рецепт по ID, если рецепт опубликован и прошел модерацию.
+     *
+     * @param id ID рецепта.
+     * @return ResponseEntity с рецептом или сообщением об ошибке.
+     */
     public ResponseEntity<?> show(Long id) {
         Optional<Recipe> recipeOpt = recipeRepository.findById(id);
         if (recipeOpt.isPresent()) {
@@ -51,11 +64,22 @@ public class RecipeService {
         }
     }
 
+    /**
+     * Показать все рецепты на модерации.
+     *
+     * @return ResponseEntity со списком рецептов.
+     */
     public ResponseEntity<?> showModeration() {
         Optional<List<Recipe>> recipeOptional = recipeRepository.findByModerStatus(true);
         return ResponseEntity.ok(recipeOptional);
     }
 
+    /**
+     * Отправить результат модерации рецепта.
+     *
+     * @param moderationResult Результат модерации.
+     * @return ResponseEntity с сообщением об обновлении статуса.
+     */
     public ResponseEntity<?> sendModerationResult(ModerationResultDTO moderationResult) {
         Recipe recipe = recipeRepository.findById(moderationResult.getId()).orElse(null);
         if (recipe == null) {
@@ -68,12 +92,27 @@ public class RecipeService {
         return ResponseEntity.ok("Статус обновлён");
     }
 
+    /**
+     * Получить отзывы к рецепту по ID.
+     *
+     * @param id ID рецепта.
+     * @return ResponseEntity со списком отзывов.
+     */
     public ResponseEntity<Optional<List<Review>>> reviews(Long id) {
         Optional<List<Review>> reviews = reviewRepository.findByEntityId(id);
         return ResponseEntity.ok(reviews);
     }
 
-    private String checkAccess(Recipe recipe, User currentUser){
+    /**
+     * Проверяет доступ пользователя к рецепту.
+     * Этот метод предназначен для внутреннего использования сервисом для проверки,
+     * имеет ли текущий пользователь право на модификацию заданного рецепта.
+     *
+     * @param recipe      Рецепт, к которому осуществляется доступ.
+     * @param currentUser Пользователь, осуществляющий доступ.
+     * @return Строковый идентификатор результата проверки ("true", "not found", "Доступ запрещен").
+     */
+    private String checkAccess(Recipe recipe, User currentUser) {
         if (recipe.getId() != null) {
             Recipe oldRecipe = recipeRepository.findById(recipe.getId()).orElse(null);
             if (oldRecipe == null) {
@@ -88,6 +127,13 @@ public class RecipeService {
         return "true";
     }
 
+    /**
+     * Добавляет новый черновик рецепта.
+     *
+     * @param recipe      Данные рецепта для сохранения в виде черновика.
+     * @param currentUser Текущий пользователь, создающий черновик.
+     * @return ResponseEntity с созданным черновиком или сообщением об ошибке.
+     */
     public ResponseEntity<?> addDraft(Recipe recipe, User currentUser) {
         String response = checkAccess(recipe, currentUser);
         if (response.equals("not found")) {
@@ -101,6 +147,14 @@ public class RecipeService {
         return new ResponseEntity<>(savedDraft, HttpStatus.CREATED);
     }
 
+    /**
+     * Добавляет новый рецепт или обновляет существующий.
+     * Если рецепт содержит недостаточно данных для публикации, он сохраняется как черновик.
+     *
+     * @param recipe      Данные рецепта для добавления или обновления.
+     * @param currentUser Текущий пользователь, добавляющий или обновляющий рецепт.
+     * @return ResponseEntity с добавленным или обновленным рецептом или сообщением об ошибке.
+     */
     public ResponseEntity<?> add(Recipe recipe, User currentUser) {
         String response = checkAccess(recipe, currentUser);
         if (response.equals("not found")) {
@@ -117,6 +171,13 @@ public class RecipeService {
         return new ResponseEntity<>(savedRecipe, HttpStatus.CREATED);
     }
 
+    /**
+     * Добавляет отзыв к рецепту.
+     *
+     * @param reviewDTO   Данные отзыва, включая ID рецепта, текст отзыва и оценку.
+     * @param currentUser Пользователь, оставляющий отзыв.
+     * @return ResponseEntity с сохраненным отзывом или сообщением об ошибке.
+     */
     public ResponseEntity<?> addReview(ReviewDTO reviewDTO, User currentUser) {
         Review review = new Review();
         if (reviewDTO.hasNulls()) {

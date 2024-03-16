@@ -3,6 +3,9 @@ package com.example.blps.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+/**
+ * Класс сущности, представляющий платёжную информацию пользователя.
+ */
 @Entity
 @Builder
 @Setter

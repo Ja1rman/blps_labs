@@ -21,8 +21,15 @@ public class AdService {
     private final UserRepository userRepository;
     private final UserService userService;
 
-    public ResponseEntity<?> getStaticAd(Long post_id) {
-        Optional<Recipe> recipe = recipeRepository.findById(post_id);
+    /**
+     * Получить статическую рекламу для заданного поста. В зависимости от наличия
+     * и информации о пользователе, который разместил рецепт, метод возвращает различные виды рекламы.
+     *
+     * @param postId ID рецепта для которого запрашивается реклама.
+     * @return ResponseEntity с текстом рекламы.
+     */
+    public ResponseEntity<?> getStaticAd(Long postId) {
+        Optional<Recipe> recipe = recipeRepository.findById(postId);
         if (recipe.isEmpty()) {
             return ResponseEntity.ok("Неперсонализированная реклама макдоналдс");
         }
@@ -36,6 +43,7 @@ public class AdService {
         }
         PaymentInfo newPaymentInfo = paymentInfo.get();
         newPaymentInfo.setAmount(newPaymentInfo.getAmount() + 1);
+        // Сохраняем обновленную информацию о платежах
         userService.savePaymentInfo(newPaymentInfo);
 
         return ResponseEntity.ok("Купите франшизу макдоналдс :(");
